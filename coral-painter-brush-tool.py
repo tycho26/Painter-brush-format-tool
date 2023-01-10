@@ -54,7 +54,7 @@ def create_brush_pack():
         order_file.write("brush-categories|{0}|{1}|-1 \n".format(brush_library_name,brush_pack_name))
 
 dpg.create_context()
-dpg.create_viewport(title="Coral Painter Brush Tool by Deurman", min_width=600,width=600, height=400, min_height=400)
+dpg.create_viewport(title="Coral Painter Brush Tool by Deurman", min_width=600,width=1000, height=800, min_height=400)
 dpg.setup_dearpygui()
 
 with dpg.window(tag="main_window", menubar=False):
@@ -62,7 +62,7 @@ with dpg.window(tag="main_window", menubar=False):
     with dpg.group(horizontal=True):
         dpg.add_text("No path selected",tag="brush_path_label")
         dpg.add_button(label="Browse", callback=open_brush_file_picker)
-    dpg.add_file_dialog(directory_selector=True, show=False, callback=file_picker_callback, tag="brush_location_file_picker", height=300, width=500)
+    dpg.add_file_dialog(directory_selector=True, show=False, callback=file_picker_callback, tag="brush_location_file_picker", height=600, width=800)
 
     dpg.add_spacer(height=10)
 
@@ -70,13 +70,13 @@ with dpg.window(tag="main_window", menubar=False):
     with dpg.group(horizontal=True):
         dpg.add_text("No path selected",tag="brush_folder_path_label")
         dpg.add_button(label="Browse", callback=open_painter_file_picker)
-    dpg.add_file_dialog(directory_selector=True, show=False, callback=file_picker_callback, tag="painter_location_file_picker", height=300, width=500)
+    dpg.add_file_dialog(directory_selector=True, show=False, callback=file_picker_callback, tag="painter_location_file_picker", height=600, width=800)
 
     dpg.add_text("Brush pack icon:")
     with dpg.group(horizontal=True):
         dpg.add_text(brush_pack_icon,tag="brush_icon_path_label")
         dpg.add_button(label="Browse", callback=open_icon_file_picker)
-    with dpg.file_dialog(directory_selector=False, show=False, callback=file_picker_callback, tag="brush_icon_file_picker", height=300, width=500):
+    with dpg.file_dialog(directory_selector=False, show=False, callback=file_picker_callback, tag="brush_icon_file_picker", height=600, width=800):
         dpg.add_file_extension(".jpg")
 
     dpg.add_spacer(height=10)
