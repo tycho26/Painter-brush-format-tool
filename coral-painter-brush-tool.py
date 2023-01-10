@@ -48,7 +48,7 @@ def create_brush_pack():
     brush_pack_path = "{0}/{1}".format(brush_lib_path,brush_pack_name)
     # Move brush pack (brush_dir_path) into folder with name of brush_pack_name inside brush library
     shutil.move(brush_dir_path, brush_pack_path)
-    shutil.copy2(brush_pack_icon, brush_pack_path+"/{0}.png".format(brush_pack_name))
+    shutil.copy2(brush_pack_icon, brush_lib_path+"/{0}.png".format(brush_pack_name))
     # Create (or edit) Ordering.dat file and append the needed formatted line to it
     with open(brush_lib_path+"/Ordering.dat","a") as order_file:
         order_file.write("brush-categories|{0}|{1}|-1 \n".format(brush_library_name,brush_pack_name))
