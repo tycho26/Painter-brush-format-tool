@@ -6,6 +6,7 @@ brush_dir_path = ""
 painter_dir_path = ""
 brush_library_name = ""
 brush_pack_name = ""
+brush_pack_icon = "./default-icon.png"
 
 def save_callback():
     print("Save Clicked")
@@ -14,6 +15,7 @@ def file_picker_callback(sender, picker_data):
 
     global brush_dir_path
     global painter_dir_path
+    global brush_pack_icon
 
     print("dir {0} opened".format(picker_data["file_path_name"]))
 
@@ -23,12 +25,18 @@ def file_picker_callback(sender, picker_data):
     if sender == "painter_location_file_picker":
         painter_dir_path = picker_data["file_path_name"]
         dpg.set_value("brush_folder_path_label", painter_dir_path)
+    if sender == "brush_icon_file_picker":
+        brush_pack_icon = picker_data["file_path_name"]
+        dpg.set_value("brush_icon_path_label", brush_pack_icon)
 
 def open_brush_file_picker(sender):
     dpg.show_item("brush_location_file_picker")
 
 def open_painter_file_picker(sender):
     dpg.show_item("painter_location_file_picker")
+
+def open_icon_file_picker(sender):
+    dpg.show_item("brush_icon_file_picker")
 
 def create_brush_pack():
     brush_library_name = dpg.get_value("brush_lib_name_field")
@@ -40,6 +48,7 @@ def create_brush_pack():
     brush_pack_path = "{0}/{1}".format(brush_lib_path,brush_pack_name)
     # Move brush pack (brush_dir_path) into folder with name of brush_pack_name inside brush library
     shutil.move(brush_dir_path, brush_pack_path)
+    shutil.copy2(brush_pack_icon, brush_pack_path+"/{0}.png".format(brush_pack_name))
     # Create (or edit) Ordering.dat file and append the needed formatted line to it
     with open(brush_lib_path+"/Ordering.dat","a") as order_file:
         order_file.write("brush-categories|{0}|{1}|-1 \n".format(brush_library_name,brush_pack_name))
@@ -62,6 +71,13 @@ with dpg.window(tag="main_window", menubar=False):
         dpg.add_text("No path selected",tag="brush_folder_path_label")
         dpg.add_button(label="Browse", callback=open_painter_file_picker)
     dpg.add_file_dialog(directory_selector=True, show=False, callback=file_picker_callback, tag="painter_location_file_picker", height=300, width=500)
+
+    dpg.add_text("Brush pack icon:")
+    with dpg.group(horizontal=True):
+        dpg.add_text(brush_pack_icon,tag="brush_icon_path_label")
+        dpg.add_button(label="Browse", callback=open_icon_file_picker)
+    with dpg.file_dialog(directory_selector=False, show=False, callback=file_picker_callback, tag="brush_icon_file_picker", height=300, width=500):
+        dpg.add_file_extension(".png")
 
     dpg.add_spacer(height=10)
 
