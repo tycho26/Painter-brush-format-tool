@@ -6,7 +6,7 @@ brush_dir_path = ""
 painter_dir_path = ""
 brush_library_name = ""
 brush_pack_name = ""
-brush_pack_icon = "assets/default-icon.png"
+brush_pack_icon = "assets/default-icon.jpg"
 
 def save_callback():
     print("Save Clicked")
@@ -48,7 +48,7 @@ def create_brush_pack():
     brush_pack_path = "{0}/{1}".format(brush_lib_path,brush_pack_name)
     # Move brush pack (brush_dir_path) into folder with name of brush_pack_name inside brush library
     shutil.move(brush_dir_path, brush_pack_path)
-    shutil.copy2(brush_pack_icon, brush_lib_path+"/{0}.png".format(brush_pack_name))
+    shutil.copy2(brush_pack_icon, brush_lib_path+"/{0}.jpg".format(brush_pack_name))
     # Create (or edit) Ordering.dat file and append the needed formatted line to it
     with open(brush_lib_path+"/Ordering.dat","a") as order_file:
         order_file.write("brush-categories|{0}|{1}|-1 \n".format(brush_library_name,brush_pack_name))
@@ -77,7 +77,7 @@ with dpg.window(tag="main_window", menubar=False):
         dpg.add_text(brush_pack_icon,tag="brush_icon_path_label")
         dpg.add_button(label="Browse", callback=open_icon_file_picker)
     with dpg.file_dialog(directory_selector=False, show=False, callback=file_picker_callback, tag="brush_icon_file_picker", height=300, width=500):
-        dpg.add_file_extension(".png")
+        dpg.add_file_extension(".jpg")
 
     dpg.add_spacer(height=10)
 
