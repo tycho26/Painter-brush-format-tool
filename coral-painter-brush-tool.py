@@ -6,7 +6,7 @@ brush_dir_path = ""
 painter_dir_path = ""
 brush_library_name = ""
 brush_pack_name = ""
-brush_pack_icon = "./default-icon.png"
+brush_pack_icon = "default-icon.png"
 
 def save_callback():
     print("Save Clicked")
